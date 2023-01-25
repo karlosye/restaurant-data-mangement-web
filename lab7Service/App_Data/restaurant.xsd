@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:rw="http://www.algonquincollege.com/cst8259/labs" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.algonquincollege.com/cst8259/labs">
+
+	<!-- declare address, entrees and appitizers here, as global; down below reference to here-->
+	<xs:element name="Address">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Street" type="xs:string" />
+				<xs:element name="City" type="xs:string" />
+				<xs:element name="Province" type="xs:string"/>
+				<xs:element name="Zip">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="^[A-Za-z]\d[A-Za-z][ -]\d[A-Za-z]\d$"></xs:pattern>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Appetizer">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Name" type="xs:string" />
+				<xs:element name="Description" type="xs:string" />
+				<xs:element name="Price" type="xs:decimal" />
+			</xs:sequence>
+			<xs:attribute name="servingSize" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Entree">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Name" type="xs:string" />
+				<xs:element name="Description" type="xs:string" />
+				<xs:element name="Price" type="xs:decimal" />
+			</xs:sequence>
+			<xs:attribute name="isGlutenFriendly" type="xs:string" use="optional" default="False"/>
+			<xs:attribute name="isVeganFriendly" type="xs:string" use="optional" default="False"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Restaurants">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="Restaurant">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Name" type="xs:string" />
+							<xs:element name="Website" type="xs:string" />
+							<xs:element name="Logo">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Height">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:unsignedByte">
+														<xs:attribute name="unit" type="xs:string" use="required" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Width">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:unsignedByte">
+														<xs:attribute name="unit" type="xs:string" use="required" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Link" type="xs:string" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="rw:Address"/>
+							<xs:element name="Phone" type="xs:string" />
+							<xs:element name="Rating" type="xs:unsignedByte" />
+							<xs:element name="Price" type="xs:string" />
+							<xs:element name="Date">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Month" type="xs:string" />
+										<xs:element name="Day" type="xs:unsignedByte" />
+										<xs:element name="Year" type="xs:unsignedShort" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Reviewer">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="firstName" type="xs:string" />
+										<xs:element name="lastName" type="xs:string" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Summary" type="xs:string" />
+
+							<xs:element name="Appetizers">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="rw:Appetizer" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+
+							<xs:element name="Entrees">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="rw:Entree"  maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+
+						</xs:sequence>
+						<xs:attribute name="type" type="xs:string" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
