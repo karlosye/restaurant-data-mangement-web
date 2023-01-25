@@ -25,8 +25,8 @@ Here's a list of features included in this project
 
 ## Links to my code
 
-- Client-side
-- Server-side
+- Client-side: [Click here](lab7Client/lab7Client)
+- Server-side: [Click here](lab7Service)
 
 ## Screenshots
 
